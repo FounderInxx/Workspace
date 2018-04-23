@@ -1,9 +1,12 @@
 
 var prefix = contpath+"equip/eqEqequip"
 $(function() {
-	load();
+	load();	
 	selectLoad();
+	
 });
+
+// 引入分类树
 var TypeSelect = function(){
 	layer.open({
 		type:2,
@@ -12,6 +15,8 @@ var TypeSelect = function(){
 		content:contpath+"equip/eqType/typeTreeView"
 	})
 }
+
+// 分类树多选
 function loadEqType(typeId,typeName){
 	//$("#eqType").val(typeId);
 	if($("#eqTypeName").val() == ''){
@@ -19,9 +24,9 @@ function loadEqType(typeId,typeName){
 	}else{
 		var selectAll = $("#eqTypeName").val() + ',' + typeName;
 		$("#eqTypeName").val(selectAll);
-	}
-	
+	}	
 }
+
 // 填充下拉框
 function selectLoad(){
 	var colLength = $('#exampleTable thead tr th').length - 2;
@@ -41,28 +46,48 @@ function selectLoad(){
             var pickName = $('.colName-select option:selected').text();
         	if(pick == 'eqTypeName'){
         		// 分类树
-        		var sort = '<div class="col-sm-3" style="margin-top: 15px"><label class="col-sm-4 control-label">'+pickName+'：</label><div class="col-sm-8 input-delete"><input id="eqTypeName" name="" class="form-control" type="text" style="cursor: pointer;" onclick="TypeSelect()" readonly placeholder="设备分类"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
+        		var sort = '<div class="col-sm-3" style="margin-top: 15px"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input id="eqTypeName" name="" class="form-control" type="text" style="cursor: pointer;" onclick="TypeSelect()" readonly placeholder="设备分类"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
         		$('.search-box .form-group').append(sort);
         	}else if(pick == 'startDate'){
         		// 日期控件
-        		var date = '<div class="col-sm-3" style="margin-top: 15px"><label class="col-sm-4 control-label">'+pickName+'：</label><div class="col-sm-8 input-delete"><input id="" name="" class="form-control" type="text"onclick="laydate()" readonly placeholder="请选择日期时间"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
+        		var date = '<div class="col-sm-3" style="margin-top: 15px"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input id="" name="" class="form-control" type="text"onclick="laydate()" readonly placeholder="请选择日期时间"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
         		$('.search-box .form-group').append(date);
         	}else if(pick == 'eqState'){
-        		// 下拉框
-        		var select = '<div class="col-sm-3" style="margin-top: 15px"><label class="col-sm-4 control-label">'+pickName+'：</label><div class="col-sm-8 input-delete"><select data-placeholder="选择类别" class="form-control chosen-select"><option value="">选择搜索类别</option></select><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
+        		// 多选下拉框
+        		var select = '<div class="col-sm-3" style="margin-top: 15px"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><select data-placeholder="选择搜索类别" class="chosen-select form-control choses" multiple tabindex="4"><option value=""></option><option value="1">1</option><option value="2">2</option></select><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
         		$('.search-box .form-group').append(select);
+        		$(".choses").chosen();
         	}
         	else{
         		// 文本框
-        		 var input = '<div class="col-sm-3" style="margin-top: 15px"><label class="col-sm-4 control-label">'+pickName+'：</label><div class="col-sm-8 input-delete"><input id="purchaseDate" name="purchaseDate" class="form-control" type="text"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
+        		 var input = '<div class="col-sm-3" style="margin-top: 15px"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input id="purchaseDate" name="purchaseDate" class="form-control" type="text"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
         		$('.search-box .form-group').append(input);
         	}
         }
-    }) 
+    }); 
     
+    // 移除所选的控件
     $('.search-box').on('click','.btn-minus',function(){
     	$(this).parent().parent().remove();	
-    })
+    });
+    
+    // 提交数据
+    $('#submit-btn').click(function(){
+        // 数据获取
+    	var formData = {};
+    	var inputNum = $('.form-horizontal label').length;
+    	// 判断控件类型
+    	for(var i=0;i<inputNum;i++){
+    		formData[i].fieldCode = $('.form-horizontal label').data('data-code');
+    		if(type = "input"){
+    			formData[i].inner = $('.form-horizontal input').val();  
+    		}else if(type = "select"){
+    			formData[i].inner = $('.form-horizontal input').val(); 
+    		}else if(type = "sort"){
+    			formData[i].inner = $('.form-horizontal input').val(); 
+    		}
+    	}
+    });   
 }
 
 function load() {
