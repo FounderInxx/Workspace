@@ -9,7 +9,9 @@ $(function() {
 	selectLoad();	
 });
 
-//收缩面板
+
+
+// 收缩面板
 function collapse(){
 	$('#collapse').click(function(){
 		debugger
@@ -65,11 +67,16 @@ function selectLoad(){
         		$('.search-box .form-group').append(sort);
         	}else if(pick == 'startDate'){
         		// 日期控件
-        		var date = '<div class="col-sm-3" style="margin-top: 15px;"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input class="form-control" type="text" onclick="laydate()" readonly placeholder="请选择日期时间"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
-        		$('.search-box .form-group').append(date);
+        		var date = '<div class="col-sm-3" style="margin-top: 15px;"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input class="form-control input-date" type="text" placeholder="开始 到 结束"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
+        		$('.search-box .form-group').append(date);        		
+        		// Laydate 日期格式化
+        		laydate.render({
+        			  elem: '.input-date'
+        			  ,range: true
+        			}); 
         	}else if(pick == 'eqState'){
         		// 多选下拉框
-        		var select = '<div class="col-sm-3" style="margin-top: 16px;"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><select data-placeholder="选择搜索类别" class="chosen-select form-control choses" multiple tabindex="4"><option value=""></option><option value="1">1</option><option value="2">2</option></select><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
+        		var select = '<div class="col-sm-3" style="margin-top: 16px;"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><select data-placeholder="选择搜索类别" class="chosen-select form-control choses" multiple tabindex="4"><option value="1">1</option><option value="2">2</option></select><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
         		$('.search-box .form-group').append(select);
         		$(".choses").chosen();
         	}
@@ -85,7 +92,7 @@ function selectLoad(){
     $('.search-box').on('click','.btn-minus',function(){
     	$(this).parent().parent().remove();	
     });
-    
+
     // 提交数据
     $('#submit-btn').click(function(){
     	debugger;
@@ -105,7 +112,14 @@ function selectLoad(){
     			formData['ncr['+i+'].inner'] = $('.form-horizontal input').val(); 
     		}
     	}
-    });   
+    });
+    
+    // 重置数据
+    $('#reset-btn').click(function(){
+    	$('.form-horizontal .input-delete').children().val('');
+    	$('.form-horizontal .chosen-select').val('');
+    	$('.form-horizontal .chosen-select').trigger('chosen:updated');
+    })
 }
 
 function load() {
