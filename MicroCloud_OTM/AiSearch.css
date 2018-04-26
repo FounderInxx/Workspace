@@ -1,0 +1,51 @@
+/*
+@Description: 
+ * @Author: Founderinxx 
+ * @Date: 2018-04-26 15:38:45 
+ * @Last Modified by:   Founderinxx 
+ * @Last Modified time: 2018-04-26 15:38:45 
+ */
+
+.mybtn {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background: #178cdf;
+    color: #f8f8f8;
+    text-align: center;
+    line-height: 22px;
+}
+
+.btn-minus {
+    position: absolute;
+    right: -8px;
+    bottom: 7px;
+    display: none;
+    background: #ed5565;
+}
+
+.btn-group {
+    float: right;
+    margin-right: 40px;
+}
+
+.search-box .form-group .col-sm-3 {
+    margin-top: 15px;
+    height: 34px;
+}
+
+.input-delete {
+    position: relative;
+}
+
+.input-delete input {
+    cursor: pointer;
+}
+
+.input-delete:hover .btn-minus {
+    display: block;
+}
+
+#collapse span {
+    color: #f8f8f8;
+}
