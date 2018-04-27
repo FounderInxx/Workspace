@@ -37,38 +37,40 @@ function loadEqType(typeId,typeName){
     		
         	function AiSearch(complete){
         		// 定义收缩面板	
-        		var AiSearchPanel = '	<div class="panel panel-primary"> \
-        									<div class="panel-heading" style="overflow:hidden"> \
-        										<div class="columns pull-left col-md-2 nopadding"> \
-        											<div class="panel-title"><i class="fa fa-search" aria-hidden="true"></i>多重搜索</div> \
-        										</div> \
-        										<div class="pull-right nopadding"> \
-        											<a id="collapse" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> \
-        									  			<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"> \
-        									  			</span> \
-        											</a> \
-        										</div> \
-        									</div> \
-        									<div class="panel-body collapse" id="collapseExample"> \
-        										<div class="col-md-3"> \
-        											<div class="form-inline"> \
-        									  			<label class="control-label">请选择想要搜索的内容：</label> \
-        												<select data-placeholder="选择类别" class="form-control chosen-select colName-select"> \
-        													<option value="">选择搜索类别</option> \
-        												</select> \
-        											</div> \
-        										</div> \
-        										<form class="form-horizontal"> \
-        											<div class="columns col-sm-12 nopadding search-box"> \
-        												<div class="form-group"></div> \
-        												<div class="btn-group"> \
-        													<div class="form-inline"> \
-        													  <button id="submit-btn" type="submit" class="btn btn-success">搜索</button> \
-        													  <button id="reset-btn" type="button" class="btn btn-warning">重置</button> \
-        													</div> \
-        												</div> \
-        											</div> \
-        										</form> \
+        		var AiSearchPanel = '	<div class="AiSearch"> \
+        									<div class="panel panel-primary"> \
+	        									<div class="panel-heading" style="overflow:hidden"> \
+	        										<div class="columns pull-left col-md-2 nopadding"> \
+	        											<div class="panel-title"><i class="fa fa-search" aria-hidden="true"></i>多重搜索</div> \
+	        										</div> \
+	        										<div class="pull-right nopadding"> \
+	        											<a id="collapse" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> \
+	        									  			<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"> \
+	        									  			</span> \
+	        											</a> \
+	        										</div> \
+	        									</div> \
+	        									<div class="panel-body collapse" id="collapseExample"> \
+	        										<div class="col-md-3"> \
+	        											<div class="form-inline"> \
+	        									  			<label class="control-label">请选择想要搜索的内容：</label> \
+	        												<select data-placeholder="选择类别" class="form-control chosen-select colName-select"> \
+	        													<option value="">选择搜索类别</option> \
+	        												</select> \
+	        											</div> \
+	        										</div> \
+	        										<form class="form-horizontal"> \
+	        											<div class="columns col-sm-12 nopadding search-box"> \
+	        												<div class="form-group"></div> \
+	        												<div class="btn-group"> \
+	        													<div class="form-inline"> \
+	        													  <button id="submit-btn" type="submit" class="btn btn-success">搜索</button> \
+	        													  <button id="reset-btn" type="button" class="btn btn-warning">重置</button> \
+	        													</div> \
+	        												</div> \
+	        											</div> \
+	        										</form> \
+	        								  	</div> \
         								  	</div> \
         								</div>'	;
         		// 加载收缩面板,加载到 .ibox-body 内起始位置
