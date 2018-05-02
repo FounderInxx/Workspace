@@ -5,33 +5,33 @@
  * @Last Modified by:   Founderinxx 
  * @Last Modified time: 2018-04-25 18:32:00 
  */
-
+var treeVal;
 // 引入分类树
-var TypeSelect = function(){
+$('.ibox').on('click','.eqTypeName',function(){
+	treeVal = $(this);
 	layer.open({
 		type:2,
 		title:"选择分类",
 		area : [ '300px', '450px' ],
 		content:contpath+"equip/eqType/typeTreeView"
 	})
-}
-
+});
 // 分类树多选
-function loadEqType(typeId,typeName){
+// treeVal 是通过 layer 的 parent 传递过来的
+function loadEqType(treeVal,typeId,typeName){
 	//$("#eqType").val(typeId);
-	if($('#eqTypeName').val() == ''){
-		$('#eqTypeName').val(typeName);
+	if(treeVal.val() == ''){
+		treeVal.val(typeName);
 	}else{
-		var selectAll = $('#eqTypeName').val() + ',' + typeName;
-		$('#eqTypeName').val(selectAll);
+		var selectAll = treeVal.val() + ',' + typeName;
+		treeVal.val(selectAll);
 	}	
 }
 
 ;(function($){  
     $.fn.extend({  
         "AiSearch":function(){
-    		// 启用 AiSearch 搜索插件
-        	debugger
+    		// 启用  AiSearch 搜索插件
         	var complete = this;
     		AiSearch(complete);	
     		
@@ -78,7 +78,6 @@ function loadEqType(typeId,typeName){
         		
         		// 收缩面板
         		$('#collapse').click(function(){
-        			debugger
         			if($('#collapse').attr('aria-expanded') == 'false'){
         				$('#collapse span').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');							
         			}else{
@@ -101,12 +100,11 @@ function loadEqType(typeId,typeName){
         	    	var pick = $('.colName-select option:selected').val();
         	    	// 当下拉框中的值不为空时
         	        if(pick != ''){
-        	        	debugger; 
         	        	// 此处 if 语句判断中的 pick 字段因为后台传来的 type 类型
         	            var pickName = $('.colName-select option:selected').text();
         	        	if(pick == 'eqTypeName'){
         	        		// 分类树
-        	        		var sort = '<div class="col-sm-3"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input id="eqTypeName" class="form-control" type="text" onclick="TypeSelect()" placeholder="设备分类"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
+        	        		var sort = '<div class="col-sm-3"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input class="form-control eqTypeName" type="text" placeholder="设备分类"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
         	        		$('.search-box .form-group').append(sort);
         	        	}else if(pick == 'startDate'){
         	        		// 日期控件
@@ -138,7 +136,6 @@ function loadEqType(typeId,typeName){
 
         	    // 提交数据
         	    $('#submit-btn').click(function(){
-        	    	debugger;
         	        // 数据获取
         	    	var formData = {};
         	    	var inputNum = $('.form-horizontal label').length;
