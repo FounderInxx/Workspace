@@ -1,128 +1,10 @@
 
 var prefix = contpath+"equip/eqEqequip"
 $(function() {
-	// 收缩面板
-	collapse();
-	// Bootstrap-Table
-	load();	
-	// 填充下拉框
-	selectLoad();	
+	load(formData);
 });
 
-
-
-// 收缩面板
-function collapse(){
-	$('#collapse').click(function(){
-		debugger
-		if($('#collapse').attr('aria-expanded') == 'false'){
-			$('#collapse span').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');							
-		}else{
-			$('#collapse span').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');							
-		}
-	})
-}
-
-// 引入分类树
-var TypeSelect = function(){
-	layer.open({
-		type:2,
-		title:"选择分类",
-		area : [ '300px', '450px' ],
-		content:contpath+"equip/eqType/typeTreeView"
-	})
-}
-
-// 分类树多选
-function loadEqType(typeId,typeName){
-	//$("#eqType").val(typeId);
-	if($('#eqTypeName').val() == ''){
-		$('#eqTypeName').val(typeName);
-	}else{
-		var selectAll = $('#eqTypeName').val() + ',' + typeName;
-		$('#eqTypeName').val(selectAll);
-	}	
-}
-
-// 填充下拉框
-function selectLoad(){
-	var colLength = $('#exampleTable thead tr th').length - 2;
-    for(var i=0;i<colLength;i++){
-    	$('.colName-select').append('<option value=""></option>');
-    	var colName = $('#exampleTable thead tr th:not(:first-child):not(:last-child)').eq(i).text();
-    	var code = $('#exampleTable thead tr th:not(:first-child):not(:last-child)').eq(i).attr('data-field');
-    	$('.colName-select option').eq(i+1).text(colName);
-    	$('.colName-select option').eq(i+1).val(code);
-    }
-    // 下拉框内容改变时触发
-    $('.colName-select').change(function(){
-    	var pick = $('.colName-select option:selected').val();
-    	// 当下拉框中的值不为空时
-        if(pick != ''){
-        	debugger;           
-            var pickName = $('.colName-select option:selected').text();
-        	if(pick == 'eqTypeName'){
-        		// 分类树
-        		var sort = '<div class="col-sm-3" style="margin-top: 15px;"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input id="eqTypeName" class="form-control" type="text" style="cursor: pointer;" onclick="TypeSelect()" readonly placeholder="设备分类"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
-        		$('.search-box .form-group').append(sort);
-        	}else if(pick == 'startDate'){
-        		// 日期控件
-        		var date = '<div class="col-sm-3" style="margin-top: 15px;"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input class="form-control input-date" type="text" placeholder="开始 到 结束"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
-        		$('.search-box .form-group').append(date);        		
-        		// Laydate 日期格式化
-        		laydate.render({
-        			  elem: '.input-date'
-        			  ,range: true
-        			}); 
-        	}else if(pick == 'eqState'){
-        		// 多选下拉框
-        		var select = '<div class="col-sm-3" style="margin-top: 16px;"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><select data-placeholder="选择搜索类别" class="chosen-select form-control choses" multiple tabindex="4"><option value="1">1</option><option value="2">2</option></select><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
-        		$('.search-box .form-group').append(select);
-        		$(".choses").chosen();
-        	}
-        	else{
-        		// 文本框
-        		 var input = '<div class="col-sm-3" style="margin-top: 15px;"><label class="col-sm-4 control-label" data-code='+pick+'>'+pickName+'：</label><div class="col-sm-8 input-delete"><input class="form-control" type="text"><div class="mybtn btn-minus"><i class="fa fa-minus" aria-hidden="true"></i></div></div></div>';
-        		$('.search-box .form-group').append(input);
-        	}
-        }
-    }); 
-    
-    // 移除所选的控件
-    $('.search-box').on('click','.btn-minus',function(){
-    	$(this).parent().parent().remove();	
-    });
-
-    // 提交数据
-    $('#submit-btn').click(function(){
-    	debugger;
-        // 数据获取
-    	var formData = {};
-    	var inputNum = $('.form-horizontal label').length;
-    	// 判断控件类型
-    	for(var i=0;i<inputNum;i++){
-    		formData['ncr['+i+'].field'] = $('.form-horizontal label').data('code');
-    		if(type = "input"){   			
-    			formData['ncr['+i+'].inner'] = $('.form-horizontal .input-delete').eq(i).children().val();
-    		}else if(type = "select"){
-    			var myStr = $('.form-horizontal .input-delete').eq(i).children().val().join("-");
-    			formData['ncr['+i+'].inner'] = myStr; 
-    		}else if(type = "sort"){
-    			var myStr2 = $('.form-horizontal .input-delete').eq(i).children().val().split(",").join("-");
-    			formData['ncr['+i+'].inner'] = $('.form-horizontal input').val(); 
-    		}
-    	}
-    });
-    
-    // 重置数据
-    $('#reset-btn').click(function(){
-    	$('.form-horizontal .input-delete').children().val('');
-    	$('.form-horizontal .chosen-select').val('');
-    	$('.form-horizontal .chosen-select').trigger('chosen:updated');
-    })
-}
-
-function load() {
+function load(formData) {
 	$('#exampleTable')
 			.bootstrapTable(
 					{
@@ -152,9 +34,9 @@ function load() {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
 								offset:params.offset,
-								queryStr : $("#searchName").val()
-					           // name:$('#searchName').val(),
-					           // username:$('#searchName').val()
+								queryStr : $("#searchName").val(),
+								line:formData
+								//line: $('.val-hide').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
