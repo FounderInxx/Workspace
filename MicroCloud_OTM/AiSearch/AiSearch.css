@@ -1,13 +1,19 @@
 /*
-@Description: AiSearch ²å¼şµÄÑùÊ½
+@Description: AiSearch æ’ä»¶çš„æ ·å¼
  * @Author: Founderinxx 
  * @Date: 2018-04-26 15:38:45 
  * @Last Modified by:   Founderinxx 
  * @Last Modified time: 2018-04-26 15:38:45 
  */
-.AiSearch {
+ .AiSearch {
   width: 100%;
   overflow: hidden;
+}
+
+#collapse .panel-heading {
+    background-color: #1ab394;
+    border-color: #1ab394;
+    color: #fff;
 }
 
 .mybtn {
@@ -27,7 +33,7 @@
   display: none;
   background: #ed5565;
 }
-.btn-group {
+.form-horizontal .btn-group {
   float: right;
   margin-right: 40px;
 }
