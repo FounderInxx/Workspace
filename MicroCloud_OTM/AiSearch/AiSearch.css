@@ -2,12 +2,11 @@
 @Description: AiSearch 插件的样式
  * @Author: Founderinxx 
  * @Date: 2018-04-26 15:38:45 
- * @Last Modified by:   Founderinxx 
- * @Last Modified time: 2018-04-26 15:38:45 
+ * @Last Modified by: Founderinxx
+ * @Last Modified time: 2018-05-09 14:53:49
  */
  .AiSearch {
   width: 100%;
-  overflow: hidden;
 }
 
 #collapse .panel-heading {
@@ -33,20 +32,25 @@
   display: none;
   background: #ed5565;
 }
+
 .form-horizontal .btn-group {
   float: right;
   margin-right: 40px;
 }
+
 .search-box .form-group .col-sm-3 {
   margin-top: 15px;
   height: 34px;
 }
+
 .input-delete {
   position: relative;
 }
+
 .input-delete input {
   cursor: pointer;
 }
+
 .input-delete:hover .btn-minus {
   display: block;
 }
